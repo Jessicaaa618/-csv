@@ -925,7 +925,7 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
 <div class="scrim" id="scrim"></div>
 <div class="fab">
   <button type="button" id="navBtn" aria-expanded="false" aria-controls="toc">Contents</button>
-  <a href="index.html" hreflang="zh-CN" lang="zh-CN">中文</a>
+  <a href="index.html" hreflang="zh-CN" lang="zh-CN" data-live="https://jessicaaa618.github.io/-csv/">中文</a>
 </div>
 
 <script>
@@ -976,6 +976,32 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
   [].forEach.call(toc.querySelectorAll('nav a'), function (a) {
     a.addEventListener('click', closeNav);
   });
+
+  /* 语言切换兜底：单文件被托管在别处（例如只托管了一个文件的预览面板）时，
+     同目录下的另一个语言版本往往不存在，此时改跳到线上地址，避免「文件未找到」 */
+  var alt = document.querySelector('.fab a[hreflang]');
+  if (alt) {
+    alt.addEventListener('click', function (e) {
+      if (location.protocol !== 'http:' && location.protocol !== 'https:') return; /* 本地双击：相对链接本来就对 */
+      if (location.hostname.slice(-10) === 'github.io') return;                     /* 线上站：相对链接本来就对 */
+      var local = alt.getAttribute('href');
+      var live = alt.getAttribute('data-live');
+      if (!live) return;
+      if (alt.getAttribute('data-resolved') === 'local') return;
+      e.preventDefault();
+      var done = false;
+      function go(url) { if (done) return; done = true; location.href = url; }
+      /* 相对版本存在就留在本地，否则跳线上；1.2s 内没有响应也按线上处理 */
+      var timer = setTimeout(function () { go(live); }, 1200);
+      fetch(local, { method: 'HEAD', cache: 'no-store' })
+        .then(function (r) {
+          clearTimeout(timer);
+          if (r && r.ok) { alt.setAttribute('data-resolved', 'local'); go(local); }
+          else { go(live); }
+        })
+        .catch(function () { clearTimeout(timer); go(live); });
+    });
+  }
 })();
 </script>
 </body>
