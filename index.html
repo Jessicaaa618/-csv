@@ -25,6 +25,12 @@
   --rail:#f8f6f0;
   --toc-w:270px;
   --cmd-label:"INPUT";
+  /* 西文以 Calibri 为主、中文回退雅黑；中文版再往下覆盖成 Segoe UI + 雅黑，
+     因为 Segoe UI 的 x-height 更接近雅黑，中英混排时西文不会显得又小又细 */
+  --sans:Calibri,"Microsoft YaHei","微软雅黑","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC",sans-serif;
+}
+html[lang="zh-CN"]{
+  --sans:"Segoe UI","Microsoft YaHei","微软雅黑","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC",sans-serif;
 }
 *{box-sizing:border-box;}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
@@ -32,10 +38,10 @@ body{
   margin:0;
   background:#eceae3;
   color:var(--ink);
-  font-family:Calibri,"Kaiti SC","楷体",KaiTi,STKaiti,"Songti SC",serif;
+  font-family:var(--sans);
   font-size:16.5px;
-  line-height:1.85;
-  letter-spacing:.01em;
+  line-height:1.75;
+  letter-spacing:0;
 }
 
 /* ---------- 整体骨架：左常驻目录 + 右正文 ---------- */
@@ -64,7 +70,7 @@ body{
   font-size:11.5px;
   letter-spacing:.24em;
   color:var(--accent);
-  font-family:Calibri,sans-serif;
+  font-family:var(--sans);
   font-weight:700;
   text-transform:uppercase;
 }
@@ -93,7 +99,7 @@ body{
 }
 .toc nav a i{
   font-style:normal;
-  font-family:Calibri,sans-serif;
+  font-family:var(--sans);
   font-size:11.5px;
   font-weight:700;
   letter-spacing:.06em;
@@ -114,7 +120,7 @@ body{
   font-size:10.5px;
   letter-spacing:.18em;
   color:var(--ink-3);
-  font-family:Calibri,sans-serif;
+  font-family:var(--sans);
   text-transform:uppercase;
 }
 .toc-foot{
@@ -199,7 +205,7 @@ body{
   letter-spacing:.22em;
   color:var(--accent);
   text-transform:uppercase;
-  font-family:Calibri,sans-serif;
+  font-family:var(--sans);
   margin:0 0 13px;
 }
 h1{
@@ -238,6 +244,7 @@ h1{
 section{margin-top:44px;scroll-margin-top:24px;}
 h2{
   font-size:22px;
+  line-height:1.4;
   margin:0 0 15px;
   padding-bottom:9px;
   border-bottom:1px solid var(--line);
@@ -248,7 +255,7 @@ h2{
   scroll-margin-top:24px;
 }
 h2 .num{
-  font-family:Calibri,sans-serif;
+  font-family:var(--sans);
   font-size:13px;
   letter-spacing:.14em;
   color:var(--accent);
@@ -261,12 +268,13 @@ h2 .num{
 }
 h3{
   font-size:17px;
+  line-height:1.5;
   margin:25px 0 10px;
   font-weight:700;
 }
 h3 .tag{
   font-size:12.5px;
-  font-family:Consolas,monospace;
+  font-family:Consolas,"Microsoft YaHei","微软雅黑",monospace;
   color:#fff;
   padding:1px 7px 2px;
   border-radius:2px;
@@ -278,7 +286,7 @@ strong{font-weight:700;}
 em{font-style:normal;border-bottom:1px dotted var(--ink-3);}
 
 code{
-  font-family:Consolas,"Cascadia Mono","SF Mono",Menlo,Monaco,monospace;
+  font-family:Consolas,"Cascadia Mono","SF Mono",Menlo,Monaco,"Microsoft YaHei","微软雅黑",monospace;
   font-size:.88em;
   background:#f0ede4;
   padding:1px 5px 2px;
@@ -293,7 +301,7 @@ code{
   border-left:3px solid var(--accent);
   padding:15px 18px;
   margin:14px 0 10px;
-  font-family:Consolas,"Cascadia Mono","SF Mono",Menlo,Monaco,monospace;
+  font-family:Consolas,"Cascadia Mono","SF Mono",Menlo,Monaco,"Microsoft YaHei","微软雅黑",monospace;
   font-size:14.5px;
   line-height:1.75;
   overflow-x:auto;
@@ -303,7 +311,7 @@ code{
   content:var(--cmd-label);
   position:absolute;
   top:8px;right:10px;
-  font-family:Calibri,"楷体",serif;
+  font-family:var(--sans);
   font-size:11px;
   letter-spacing:.1em;
   color:#a6a093;
@@ -337,7 +345,7 @@ figure{
   background:#3d3d3d;display:block;
 }
 .term-bar span{
-  font-family:Consolas,monospace;
+  font-family:Consolas,"Microsoft YaHei","微软雅黑",monospace;
   font-size:11.5px;
   color:#7d7d7d;
   margin-left:6px;
@@ -372,7 +380,7 @@ figcaption b{color:var(--ink-2);font-weight:700;}
   align-items:start;
 }
 .lines .idx{
-  font-family:Calibri,sans-serif;
+  font-family:var(--sans);
   font-size:11px;
   font-weight:700;
   color:var(--ink-3);
@@ -385,7 +393,7 @@ figcaption b{color:var(--ink-2);font-weight:700;}
 }
 .lines .k{
   display:block;
-  font-family:Consolas,"Cascadia Mono","SF Mono",Menlo,Monaco,monospace;
+  font-family:Consolas,"Cascadia Mono","SF Mono",Menlo,Monaco,"Microsoft YaHei","微软雅黑",monospace;
   font-size:12.5px;
   line-height:1.55;
   color:#333;
@@ -438,7 +446,7 @@ tr:last-child td{border-bottom:1px solid var(--line);}
 /* ---------- 状态标签 ---------- */
 .pill{
   display:inline-block;
-  font-family:Consolas,monospace;
+  font-family:Consolas,"Microsoft YaHei","微软雅黑",monospace;
   font-size:12.5px;
   font-weight:700;
   padding:1px 8px 2px;
@@ -466,7 +474,7 @@ tr:last-child td{border-bottom:1px solid var(--line);}
   letter-spacing:.14em;
   color:var(--ink-3);
   text-transform:uppercase;
-  font-family:Calibri,sans-serif;
+  font-family:var(--sans);
   display:block;
   margin-bottom:4px;
 }
@@ -490,7 +498,7 @@ tr:last-child td{border-bottom:1px solid var(--line);}
   background:#fff;
 }
 .card .h{
-  font-family:Consolas,monospace;
+  font-family:Consolas,"Microsoft YaHei","微软雅黑",monospace;
   font-size:12.5px;
   font-weight:700;
   letter-spacing:.04em;
@@ -516,11 +524,11 @@ tr:last-child td{border-bottom:1px solid var(--line);}
 .facts .f{
   border:1px solid var(--line);
   background:#fff;
-  padding:12px 13px 13px;
+  padding:13px 14px 14px;
 }
 .facts .role{
   display:block;
-  font-family:Calibri,sans-serif;
+  font-family:var(--sans);
   font-size:10px;
   letter-spacing:.12em;
   text-transform:uppercase;
@@ -528,8 +536,9 @@ tr:last-child td{border-bottom:1px solid var(--line);}
   margin-bottom:5px;
 }
 .facts .nm{
-  font-family:Consolas,"Cascadia Mono",monospace;
-  font-size:13.5px;
+  /* 卡片标题不是代码，等宽字体会把「Python 3」里的空格撑成字宽 */
+  font-family:var(--sans);
+  font-size:14px;
   font-weight:700;
   color:var(--ink);
   margin:0 0 6px;
@@ -538,7 +547,7 @@ tr:last-child td{border-bottom:1px solid var(--line);}
 .facts .ds{
   margin:0;
   font-size:13px;
-  line-height:1.62;
+  line-height:1.72;
   color:var(--ink-2);
   text-wrap:balance;
 }
@@ -565,7 +574,7 @@ tr:last-child td{border-bottom:1px solid var(--line);}
   border-radius:50%;
   background:var(--ink);
   color:#fff;
-  font-family:Calibri,sans-serif;
+  font-family:var(--sans);
   font-size:11.5px;
   font-weight:700;
   display:flex;align-items:center;justify-content:center;
@@ -593,17 +602,17 @@ tr:last-child td{border-bottom:1px solid var(--line);}
   border-radius:2px;
   background:#faf8f2;
   font-style:normal;
-  font-family:Consolas,"Cascadia Mono",monospace;
-  font-size:10.5px;
+  font-family:var(--sans);
+  font-size:11px;
   color:#8d8779;
-  letter-spacing:.03em;
+  letter-spacing:.02em;
   vertical-align:1.5px;
   white-space:nowrap;
 }
 .flow li span{
   display:block;
   font-size:13px;
-  line-height:1.62;
+  line-height:1.72;
   color:var(--ink-2);
   margin-top:3px;
   text-wrap:balance;
@@ -701,7 +710,7 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
   }
   .print-toc span{color:var(--ink-2);}
   .print-toc span b{
-    font-family:Calibri,sans-serif;
+    font-family:var(--sans);
     color:var(--accent);
     margin-right:5px;
     font-size:9pt;
@@ -730,6 +739,13 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
   table{page-break-inside:auto;}
   thead{display:table-header-group;}
   tr{page-break-inside:avoid;}
+  /* 打印版收紧：让附录 B 落在第 8 页，避免第 9 页只剩五行 */
+  .appendix{margin-top:14px;padding-top:12px;font-size:13px;}
+  .appendix h2{margin-bottom:9px;}
+  ul.flat{margin-bottom:10px;}
+  ul.flat li{margin-bottom:3px;line-height:1.6;}
+  td{padding:5px 10px;}
+  th{padding:6px 10px 5px;}
   h2{page-break-after:avoid;}
   h3{page-break-after:avoid;}
   .cmd{background:#f5f3ec !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
@@ -833,7 +849,7 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
         <div class="f">
           <span class="role">界面</span>
           <p class="nm">CMD 或终端</p>
-          <p class="ds">输入命令、启动程序、查看结果的地方。按 <strong>Win + R</strong> 后输入 <code>cmd</code> 就能打开。</p>
+          <p class="ds">输入命令、启动程序、查看结果的地方。按 <strong class="nw">Win + R</strong> 后输入 <code>cmd</code> 就能打开。</p>
         </div>
         <div class="f">
           <span class="role">说明</span>
@@ -905,7 +921,7 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
     <!-- ===== 02 准备 ===== -->
     <section id="s2">
       <h2><span class="num">02</span>运行前：开一个干净的命令行窗口</h2>
-      <p>按 <strong>Win + R</strong>，输入 <code>cmd</code>，回车。窗口打开后先确认 Python 在不在：</p>
+      <p>按 <strong class="nw">Win + R</strong>，输入 <code>cmd</code>，回车。窗口打开后先确认 Python 在不在：</p>
 
       <div class="cmd"><span class="prompt">&gt;</span> python --version</div>
 
