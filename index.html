@@ -470,6 +470,7 @@ tr:last-child td{border-bottom:1px solid var(--line);}
   display:block;
   margin-bottom:4px;
 }
+.callout p{margin:0 0 8px;text-wrap:pretty;}
 .callout p:last-child{margin-bottom:0;}
 .callout.warn{border-left-color:var(--fail);background:#fdf7ec;}
 .callout.warn .lab{color:var(--fail);}
@@ -504,6 +505,115 @@ tr:last-child td{border-bottom:1px solid var(--line);}
 .card.a{border-top:2px solid var(--pass);} .card.a .h{color:var(--pass);}
 .card.b{border-top:2px solid var(--fail);} .card.b .h{color:var(--fail);}
 .card.c{border-top:2px solid var(--err);} .card.c .h{color:var(--err);}
+
+/* ---------- 任务要素卡：3 列 × 2 行 ---------- */
+.facts{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin:15px 0 8px;
+}
+.facts .f{
+  border:1px solid var(--line);
+  background:#fff;
+  padding:12px 13px 13px;
+}
+.facts .role{
+  display:block;
+  font-family:Calibri,sans-serif;
+  font-size:10px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#9a9486;
+  margin-bottom:5px;
+}
+.facts .nm{
+  font-family:Consolas,"Cascadia Mono",monospace;
+  font-size:13.5px;
+  font-weight:700;
+  color:var(--ink);
+  margin:0 0 6px;
+  line-height:1.4;
+}
+.facts .ds{
+  margin:0;
+  font-size:13px;
+  line-height:1.62;
+  color:var(--ink-2);
+  text-wrap:balance;
+}
+
+/* ---------- 流程条：七步串联，右侧标注责任层 ---------- */
+.flow{
+  counter-reset:step;
+  list-style:none;
+  margin:16px 0 12px;
+  padding:0;
+}
+.flow li{
+  counter-increment:step;
+  position:relative;
+  padding-left:33px;
+  margin-bottom:12px;
+}
+.flow li:last-child{margin-bottom:0;}
+.flow li:before{
+  content:counter(step);
+  position:absolute;
+  left:0;top:2px;
+  width:21px;height:21px;
+  border-radius:50%;
+  background:var(--ink);
+  color:#fff;
+  font-family:Calibri,sans-serif;
+  font-size:11.5px;
+  font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+.flow li:after{
+  content:"";
+  position:absolute;
+  left:10px;top:27px;bottom:-13px;
+  width:1px;
+  background:#d6d0c1;
+}
+.flow li:last-child:after{display:none;}
+.flow li b{
+  font-size:14.5px;
+  font-weight:700;
+  color:var(--ink);
+  line-height:1.5;
+}
+/* 责任层标签紧跟标题，不推到行尾，否则与标题脱节 */
+.flow li i{
+  display:inline-block;
+  margin-left:9px;
+  padding:1px 7px 2px;
+  border:1px solid var(--line);
+  border-radius:2px;
+  background:#faf8f2;
+  font-style:normal;
+  font-family:Consolas,"Cascadia Mono",monospace;
+  font-size:10.5px;
+  color:#8d8779;
+  letter-spacing:.03em;
+  vertical-align:1.5px;
+  white-space:nowrap;
+}
+.flow li span{
+  display:block;
+  font-size:13px;
+  line-height:1.62;
+  color:var(--ink-2);
+  margin-top:3px;
+  text-wrap:balance;
+}
+.flow li span code{font-size:12.5px;}
+.callout a{
+  color:var(--accent);
+  text-decoration:none;
+  border-bottom:1px solid rgba(47,93,140,.3);
+}
 
 /* ---------- 附录 ---------- */
 .appendix{
@@ -552,6 +662,7 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
     display:grid;grid-template-columns:repeat(3,1fr);gap:0 14px;
   }
   .lines{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row;}
+  .facts{grid-template-columns:repeat(2,1fr);}
   .cards{grid-template-columns:1fr;}
   h1{font-size:28px;}
   section{margin-top:34px;}
@@ -559,6 +670,7 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
 
 @media (max-width:560px){
   .meta{grid-template-columns:repeat(2,1fr);}
+  .facts{grid-template-columns:1fr;}
   h1{font-size:25px;}
   body{font-size:16px;}
   table{font-size:13.5px;}
@@ -600,6 +712,19 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
   .meta dd{font-size:11.5px;}
   h1{font-size:27px;}
   .cards{grid-template-columns:repeat(3,1fr);}
+  .facts{grid-template-columns:repeat(3,1fr);gap:8px;}
+  .facts .f{padding:9px 10px 10px;}
+  .facts .ds{font-size:9.6pt;line-height:1.5;}
+  .facts .nm{font-size:9.8pt;margin-bottom:4px;}
+  .flow{margin:12px 0 8px;}
+  .flow li{margin-bottom:8px;}
+  .flow li b{font-size:10.2pt;}
+  .flow li span{font-size:9.4pt;line-height:1.5;}
+  .flow li i{font-size:8.4pt;padding:0 5px 1px;margin-left:7px;}
+  .flow li:after{bottom:-9px;}
+  .flow{page-break-inside:avoid;}
+  .facts{page-break-inside:avoid;}
+  .callout{page-break-inside:avoid;}
   section{margin-top:24px;}
   figure,.cards,.lines{page-break-inside:avoid;}
   table{page-break-inside:auto;}
@@ -625,6 +750,7 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
     <p class="toc-title">Contents</p>
     <p class="toc-sub">目录 · 点击跳转</p>
     <nav>
+      <a href="#s0" data-sec="s0"><i>00</i>这项作业的全貌</a>
       <a href="#s1" data-sec="s1"><i>01</i>这个工具做什么</a>
       <a href="#s2" data-sec="s2"><i>02</i>运行前：准备命令行</a>
       <a href="#s3" data-sec="s3"><i>03</i>进入文件夹并运行</a>
@@ -665,6 +791,7 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
 
     <!-- 打印时替身：屏幕上由左侧目录承担 -->
     <div class="print-toc">
+      <span><b>00</b>这项作业的全貌</span>
       <span><b>01</b>这个工具做什么</span>
       <span><b>02</b>运行前：开一个干净的命令行窗口</span>
       <span><b>03</b>进入文件夹并运行</span>
@@ -674,6 +801,91 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
       <span><b>07</b>卡住了查这张表</span>
       <span><b>A</b>样例文件一览　<b>B</b>这个工具不做什么</span>
     </div>
+
+    <!-- ===== 00 全貌 ===== -->
+    <section id="s0">
+      <h2><span class="num">00</span>这项作业的全貌</h2>
+      <p>任务只有一句话：<strong>用文件夹里的 <code>check.py</code> 检查几个 CSV 文件，看它们是否符合约定的要求。</strong>
+        但要把这句话变成屏幕上的一份报告，中间要经过好几层。先看清每一层是谁在干活，后面敲命令时才不是照抄。</p>
+
+      <h3>六个要素</h3>
+      <div class="facts">
+        <div class="f">
+          <span class="role">运行环境</span>
+          <p class="nm">Python 3</p>
+          <p class="ds">一门编程语言，以及执行它的软件。没有它，<code>check.py</code> 只是一份文本，不是程序。</p>
+        </div>
+        <div class="f">
+          <span class="role">流程</span>
+          <p class="nm">check.py</p>
+          <p class="ds">老师写好的主程序，它规定检查顺序：先读文件、再比对列名、最后给结论。</p>
+        </div>
+        <div class="f">
+          <span class="role">功能</span>
+          <p class="nm">csvcheck/</p>
+          <p class="ds">与 <code>check.py</code> 同目录的包，真正执行 CSV 读取与列名比对的代码在这里。</p>
+        </div>
+        <div class="f">
+          <span class="role">数据</span>
+          <p class="nm">CSV 文件</p>
+          <p class="ds">被检查的对象。第一行是表头，后面每一行是一条记录。文件需为 UTF-8 编码。</p>
+        </div>
+        <div class="f">
+          <span class="role">界面</span>
+          <p class="nm">CMD 或终端</p>
+          <p class="ds">输入命令、启动程序、查看结果的地方。按 <strong>Win + R</strong> 后输入 <code>cmd</code> 就能打开。</p>
+        </div>
+        <div class="f">
+          <span class="role">说明</span>
+          <p class="nm">README</p>
+          <p class="ds">这个包的说明书：怎么用、有哪些参数、样例文件各是什么。动手前先翻一遍。</p>
+        </div>
+      </div>
+
+      <p><code>check.py</code> 负责<strong>组织流程</strong>，<code>csvcheck</code> 负责<strong>提供检查功能</strong>，两者分开存放。
+        这就是「模块化设计」：把不同的任务交给不同的文件，改动其中一处不必碰另一处。</p>
+
+      <h3>从敲下命令到拿到结论</h3>
+      <p>整条链上有七步。每步标题后面那个小标签，标的就是这一环由谁负责——把七个环节对上号，「程序怎么跑起来的」就不再是黑箱。</p>
+
+      <ol class="flow">
+        <li>
+          <b>你输入运行命令</b><i>你</i>
+          <span>在 CMD 里敲 <code>python check.py samples/students.csv</code>。这一行包含三样信息：用哪个解释器、跑哪个程序、检查哪个文件。</span>
+        </li>
+        <li>
+          <b>CMD 接收命令</b><i>终端</i>
+          <span>终端把这一行交给系统，按 <code>PATH</code> 找到真正的 <code>python.exe</code>。</span>
+        </li>
+        <li>
+          <b>Python 解释器执行 check.py</b><i>解释器</i>
+          <span>解释器读入脚本，从第一行开始往下执行。</span>
+        </li>
+        <li>
+          <b>check.py 调用 csvcheck</b><i>程序</i>
+          <span>主程序把「读文件、比对列名」这些具体活交给 <code>csvcheck</code>，自己只管流程和输出。</span>
+        </li>
+        <li>
+          <b>读取 CSV 并检查数据</b><i>数据</i>
+          <span><code>csvcheck</code> 打开文件，取第一行作为列名，再与要求的三列逐一核对。</span>
+        </li>
+        <li>
+          <b>输出检查报告</b><i>输出</i>
+          <span>七行文字从程序回到 CMD，显示在屏幕上。</span>
+        </li>
+        <li>
+          <b>返回退出状态</b><i>约定</i>
+          <span>程序结束时留下一个数字：<code>0</code> 通过、<code>1</code> 不合格、<code>2</code> 文件读不出来。它不显示给人看，是留给脚本判断用的。</span>
+        </li>
+      </ol>
+
+      <div class="callout key">
+        <span class="lab">这项作业真正要你理解的三件事</span>
+        <p><strong>一、程序怎么拿到文件。</strong>文件路径写在命令里，而相对路径是<strong>相对当前所在目录</strong>算的。所以「先 cd 进文件夹」不是仪式，它决定了程序能不能找到文件。见 <a href="#s3">第 3 节</a>。</p>
+        <p><strong>二、检查是怎么被执行的。</strong>流程写在 <code>check.py</code>，规则写在 <code>csvcheck</code>。想知道「PASS 到底检查了什么」，得看的是后者的代码。见 <a href="#s1">第 1 节</a>。</p>
+        <p><strong>三、结果是怎么反馈的。</strong>同一次运行有两条反馈通道：屏幕上的七行报告给人看，退出码给程序看。两者都不该忽略。见 <a href="#s4">第 4 节</a> 与 <a href="#s5">第 5 节</a>。</p>
+      </div>
+    </section>
 
     <!-- ===== 01 它能做什么 ===== -->
     <section id="s1">
@@ -885,6 +1097,7 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
 
     <!-- ===== 附录 ===== -->
     <div class="appendix">
+      <div class="keep">
       <h2 id="a1"><span class="num" style="font-size:11px;padding:1px 6px 1px;">A</span>样例文件一览</h2>
       <table>
         <thead><tr><th style="width:32%">文件</th><th style="width:11%" class="c">结果</th><th style="width:9%" class="c">退出码</th><th>看点</th></tr></thead>
@@ -895,7 +1108,9 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
           <tr><td><code>samples/empty.csv</code></td><td class="c"><span class="pill err">ERROR</span></td><td class="c">2</td><td>空文件，读不到表头</td></tr>
         </tbody>
       </table>
+      </div>
 
+      <div class="keep">
       <h2 id="a2"><span class="num" style="font-size:11px;padding:1px 6px 1px;">B</span>这个工具不做什么</h2>
       <ul class="flat">
         <li>不检查分值是否合理，不检查是否重复、是否缺失</li>
@@ -904,6 +1119,7 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
         <li>不支持制表符分隔的 <code>.tsv</code></li>
         <li>不处理非 UTF-8 编码的文件</li>
       </ul>
+      </div>
     </div>
 
     <div class="foot">

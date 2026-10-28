@@ -470,6 +470,7 @@ tr:last-child td{border-bottom:1px solid var(--line);}
   display:block;
   margin-bottom:4px;
 }
+.callout p{margin:0 0 8px;text-wrap:pretty;}
 .callout p:last-child{margin-bottom:0;}
 .callout.warn{border-left-color:var(--fail);background:#fdf7ec;}
 .callout.warn .lab{color:var(--fail);}
@@ -504,6 +505,115 @@ tr:last-child td{border-bottom:1px solid var(--line);}
 .card.a{border-top:2px solid var(--pass);} .card.a .h{color:var(--pass);}
 .card.b{border-top:2px solid var(--fail);} .card.b .h{color:var(--fail);}
 .card.c{border-top:2px solid var(--err);} .card.c .h{color:var(--err);}
+
+/* ---------- 任务要素卡：3 列 × 2 行 ---------- */
+.facts{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin:15px 0 8px;
+}
+.facts .f{
+  border:1px solid var(--line);
+  background:#fff;
+  padding:12px 13px 13px;
+}
+.facts .role{
+  display:block;
+  font-family:Calibri,sans-serif;
+  font-size:10px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#9a9486;
+  margin-bottom:5px;
+}
+.facts .nm{
+  font-family:Consolas,"Cascadia Mono",monospace;
+  font-size:13.5px;
+  font-weight:700;
+  color:var(--ink);
+  margin:0 0 6px;
+  line-height:1.4;
+}
+.facts .ds{
+  margin:0;
+  font-size:13px;
+  line-height:1.62;
+  color:var(--ink-2);
+  text-wrap:balance;
+}
+
+/* ---------- 流程条：七步串联，右侧标注责任层 ---------- */
+.flow{
+  counter-reset:step;
+  list-style:none;
+  margin:16px 0 12px;
+  padding:0;
+}
+.flow li{
+  counter-increment:step;
+  position:relative;
+  padding-left:33px;
+  margin-bottom:12px;
+}
+.flow li:last-child{margin-bottom:0;}
+.flow li:before{
+  content:counter(step);
+  position:absolute;
+  left:0;top:2px;
+  width:21px;height:21px;
+  border-radius:50%;
+  background:var(--ink);
+  color:#fff;
+  font-family:Calibri,sans-serif;
+  font-size:11.5px;
+  font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+.flow li:after{
+  content:"";
+  position:absolute;
+  left:10px;top:27px;bottom:-13px;
+  width:1px;
+  background:#d6d0c1;
+}
+.flow li:last-child:after{display:none;}
+.flow li b{
+  font-size:14.5px;
+  font-weight:700;
+  color:var(--ink);
+  line-height:1.5;
+}
+/* 责任层标签紧跟标题，不推到行尾，否则与标题脱节 */
+.flow li i{
+  display:inline-block;
+  margin-left:9px;
+  padding:1px 7px 2px;
+  border:1px solid var(--line);
+  border-radius:2px;
+  background:#faf8f2;
+  font-style:normal;
+  font-family:Consolas,"Cascadia Mono",monospace;
+  font-size:10.5px;
+  color:#8d8779;
+  letter-spacing:.03em;
+  vertical-align:1.5px;
+  white-space:nowrap;
+}
+.flow li span{
+  display:block;
+  font-size:13px;
+  line-height:1.62;
+  color:var(--ink-2);
+  margin-top:3px;
+  text-wrap:balance;
+}
+.flow li span code{font-size:12.5px;}
+.callout a{
+  color:var(--accent);
+  text-decoration:none;
+  border-bottom:1px solid rgba(47,93,140,.3);
+}
 
 /* ---------- 附录 ---------- */
 .appendix{
@@ -552,6 +662,7 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
     display:grid;grid-template-columns:repeat(3,1fr);gap:0 14px;
   }
   .lines{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row;}
+  .facts{grid-template-columns:repeat(2,1fr);}
   .cards{grid-template-columns:1fr;}
   h1{font-size:28px;}
   section{margin-top:34px;}
@@ -559,6 +670,7 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
 
 @media (max-width:560px){
   .meta{grid-template-columns:repeat(2,1fr);}
+  .facts{grid-template-columns:1fr;}
   h1{font-size:25px;}
   body{font-size:16px;}
   table{font-size:13.5px;}
@@ -600,6 +712,19 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
   .meta dd{font-size:11.5px;}
   h1{font-size:27px;}
   .cards{grid-template-columns:repeat(3,1fr);}
+  .facts{grid-template-columns:repeat(3,1fr);gap:8px;}
+  .facts .f{padding:9px 10px 10px;}
+  .facts .ds{font-size:9.6pt;line-height:1.5;}
+  .facts .nm{font-size:9.8pt;margin-bottom:4px;}
+  .flow{margin:12px 0 8px;}
+  .flow li{margin-bottom:8px;}
+  .flow li b{font-size:10.2pt;}
+  .flow li span{font-size:9.4pt;line-height:1.5;}
+  .flow li i{font-size:8.4pt;padding:0 5px 1px;margin-left:7px;}
+  .flow li:after{bottom:-9px;}
+  .flow{page-break-inside:avoid;}
+  .facts{page-break-inside:avoid;}
+  .callout{page-break-inside:avoid;}
   section{margin-top:24px;}
   figure,.cards,.lines{page-break-inside:avoid;}
   table{page-break-inside:auto;}
@@ -625,6 +750,7 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
     <p class="toc-title">Contents</p>
     <p class="toc-sub">Jump to a section</p>
     <nav>
+      <a href="#s0" data-sec="s0"><i>00</i>The assignment at a glance</a>
       <a href="#s1" data-sec="s1"><i>01</i>What this tool does</a>
       <a href="#s2" data-sec="s2"><i>02</i>Before you start</a>
       <a href="#s3" data-sec="s3"><i>03</i>Go to the folder and run it</a>
@@ -666,6 +792,7 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
 
     <!-- Print-only stand-in for the sidebar -->
     <div class="print-toc">
+      <span><b>00</b>The assignment at a glance</span>
       <span><b>01</b>What this tool does</span>
       <span><b>02</b>Before you start</span>
       <span><b>03</b>Go to the folder and run it</span>
@@ -675,6 +802,91 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
       <span><b>07</b>Troubleshooting</span>
       <span><b>A</b>Sample files　<b>B</b>Out of scope</span>
     </div>
+
+    <!-- ===== 00 ===== -->
+    <section id="s0">
+      <h2><span class="num">00</span>The assignment at a glance</h2>
+      <p>The task fits in one sentence: <strong>use <code>check.py</code> from the folder to check a few CSV files and see whether they meet the required rules.</strong>
+        Turning that sentence into a report on screen takes several layers. Know who does what before you type anything, and the command stops being something you copy.</p>
+
+      <h3>Six pieces</h3>
+      <div class="facts">
+        <div class="f">
+          <span class="role">Runtime</span>
+          <p class="nm">Python 3</p>
+          <p class="ds">A programming language plus the software that executes it. Without it, <code>check.py</code> is only text.</p>
+        </div>
+        <div class="f">
+          <span class="role">Flow</span>
+          <p class="nm">check.py</p>
+          <p class="ds">The program your teacher wrote. It sets the order: read the file, compare, print a verdict.</p>
+        </div>
+        <div class="f">
+          <span class="role">Function</span>
+          <p class="nm">csvcheck/</p>
+          <p class="ds">The package next to <code>check.py</code>. The code that reads a CSV and compares headers lives here.</p>
+        </div>
+        <div class="f">
+          <span class="role">Data</span>
+          <p class="nm">CSV files</p>
+          <p class="ds">What gets checked. The first row is the header; every row after it is one record.</p>
+        </div>
+        <div class="f">
+          <span class="role">Interface</span>
+          <p class="nm">CMD or terminal</p>
+          <p class="ds">Where you type the command, start the program and read the result. Press <strong>Win + R</strong>, then type <code>cmd</code>.</p>
+        </div>
+        <div class="f">
+          <span class="role">Reference</span>
+          <p class="nm">README</p>
+          <p class="ds">The manual for the package: how to run it, which options exist, what each sample file is.</p>
+        </div>
+      </div>
+
+      <p><code>check.py</code> <strong>organizes the flow</strong>; <code>csvcheck</code> <strong>supplies the checking</strong>. They are kept in separate files.
+        That is modular design: one job per file, so changing one does not disturb the other.</p>
+
+      <h3>Seven steps from keystroke to verdict</h3>
+      <p>Seven links in the chain. The small label after each step names the layer responsible, so nothing stays a black box.</p>
+
+      <ol class="flow">
+        <li>
+          <b>You type the command</b><i>You</i>
+          <span>In CMD: <code>python check.py samples/students.csv</code>. That line names three things: the interpreter, the program, the file.</span>
+        </li>
+        <li>
+          <b>CMD takes the line</b><i>Shell</i>
+          <span>The shell hands it to the system, which resolves the real <code>python.exe</code> through <code>PATH</code>.</span>
+        </li>
+        <li>
+          <b>Python runs check.py</b><i>Interpreter</i>
+          <span>The interpreter loads the script and executes it from the first line down.</span>
+        </li>
+        <li>
+          <b>check.py calls csvcheck</b><i>Program</i>
+          <span>The main program delegates reading and comparing to <code>csvcheck</code> and keeps only the flow and the output.</span>
+        </li>
+        <li>
+          <b>The CSV is opened and checked</b><i>Data</i>
+          <span><code>csvcheck</code> opens the file, takes the first row as column names, and matches them against the three required ones.</span>
+        </li>
+        <li>
+          <b>The report is printed</b><i>Output</i>
+          <span>Seven lines travel back to CMD and appear on screen.</span>
+        </li>
+        <li>
+          <b>An exit status is returned</b><i>Convention</i>
+          <span>It leaves a number behind: <code>0</code> pass, <code>1</code> fail, <code>2</code> unreadable — never shown to you, only to scripts.</span>
+        </li>
+      </ol>
+
+      <div class="callout key">
+        <span class="lab">Three things this assignment really asks you to understand</span>
+        <p><strong>1. How the program gets the file.</strong> The path is written in the command, and a relative path is resolved against <strong>the directory you are in</strong>. That is why <code>cd</code> is not a ritual: it decides whether the program can find the file. See <a href="#s3">section 3</a>.</p>
+        <p><strong>2. How the check actually runs.</strong> The flow lives in <code>check.py</code>; the rules live in <code>csvcheck</code>. To know what PASS really verified, you have to read the second one. See <a href="#s1">section 1</a>.</p>
+        <p><strong>3. How the result comes back.</strong> One run reports on two channels: seven lines for the human, an exit code for the program. Neither should be ignored. See <a href="#s4">section 4</a> and <a href="#s5">section 5</a>.</p>
+      </div>
+    </section>
 
     <!-- ===== 01 ===== -->
     <section id="s1">
@@ -893,6 +1105,7 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
 
     <!-- ===== Appendix ===== -->
     <div class="appendix">
+      <div class="keep">
       <h2 id="a1"><span class="num" style="font-size:11px;padding:1px 6px 1px;">A</span>Sample files</h2>
       <table>
         <thead><tr><th style="width:32%">File</th><th style="width:11%" class="c">Outcome</th><th style="width:9%" class="c">Code</th><th>What to look at</th></tr></thead>
@@ -903,7 +1116,9 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
           <tr><td><code>samples/empty.csv</code></td><td class="c"><span class="pill err">ERROR</span></td><td class="c">2</td><td>Empty file, no header readable</td></tr>
         </tbody>
       </table>
+      </div>
 
+      <div class="keep">
       <h2 id="a2"><span class="num" style="font-size:11px;padding:1px 6px 1px;">B</span>What this tool does not do</h2>
       <ul class="flat">
         <li>It does not judge whether scores are sensible, duplicated or missing</li>
@@ -912,6 +1127,7 @@ ul.flat li{margin-bottom:5px;color:var(--ink-2);}
         <li>It does not accept tab-separated <code>.tsv</code></li>
         <li>It does not handle files that are not UTF-8</li>
       </ul>
+      </div>
     </div>
 
     <div class="foot">
